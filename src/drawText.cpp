@@ -11,8 +11,6 @@ std::vector <SDL_Texture*> textures;
 bool initText (){
     SDL_Color color = { 255, 255, 255, SDL_ALPHA_OPAQUE };
     
-
-
     TTF_Font *font = NULL;
     font = TTF_OpenFont("assets/fonts/Roboto-Regular.ttf", 24);
     //font = TTF_OpenFontIO(SDL_IOFromConstMem(tiny_ttf, tiny_ttf_len), true, 16.0f);

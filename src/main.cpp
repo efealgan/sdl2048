@@ -1,3 +1,5 @@
+#include "SDL3/SDL_pixels.h"
+#include "SDL3/SDL_render.h"
 #include <SDL3/SDL_init.h>
 #include <SDL3/SDL_scancode.h>
 #define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
@@ -30,18 +32,22 @@ SDL_AppResult handleKeyEvents(SDL_Scancode scancode){
     Direction direction = None;
 
     switch(scancode){
+        case SDL_SCANCODE_UP:
         case SDL_SCANCODE_W:
             SDL_Log("Pressed UP");
             direction = Up;
             break;
+        case SDL_SCANCODE_LEFT:
         case SDL_SCANCODE_A:
             SDL_Log("Pressed LEFT");
             direction = Left;
             break;
+        case SDL_SCANCODE_DOWN:
         case SDL_SCANCODE_S:
             SDL_Log("Pressed DOWN");
             direction = Down;
             break;
+        case SDL_SCANCODE_RIGHT:
         case SDL_SCANCODE_D:
             SDL_Log("Pressed RIGHT");
             direction = Right;
@@ -136,15 +142,59 @@ SDL_AppResult SDL_AppIterate(void *appstate){
     rect.w = rect.h = tileSizePixels;
 
 
-    SDL_SetRenderDrawColor(renderer, 100, 100, 100, SDL_ALPHA_OPAQUE);
+    
     for (int i = 0; i < dimensions; i++) {
         for (int j = 0; j < dimensions; j++) {
+            switch (board.at(i).at(j)) {
+                case 0:
+                    SDL_SetRenderDrawColor(renderer, 100, 100, 100, SDL_ALPHA_OPAQUE);
+                    SDL_RenderFillRect(renderer, &rect);
+                    break;
+                case 1:
+                    SDL_SetRenderDrawColor(renderer, 238, 228, 218, SDL_ALPHA_OPAQUE);
+                    SDL_RenderFillRect(renderer, &rect);
+                    break;
+                case 2:
+                    SDL_SetRenderDrawColor(renderer, 237, 224, 200, SDL_ALPHA_OPAQUE);
+                    SDL_RenderFillRect(renderer, &rect);
+                    break;
+                case 3:
+                    SDL_SetRenderDrawColor(renderer, 242, 177, 121, SDL_ALPHA_OPAQUE);
+                    SDL_RenderFillRect(renderer, &rect);
+                    break;
+                case 4:
+                    SDL_SetRenderDrawColor(renderer, 245, 149, 99, SDL_ALPHA_OPAQUE);
+                    break;
+                case 5:
+                    SDL_SetRenderDrawColor(renderer, 246, 124, 95, SDL_ALPHA_OPAQUE);
+                    break;
+                case 6:
+                    SDL_SetRenderDrawColor(renderer, 246, 94, 59, SDL_ALPHA_OPAQUE);
+                    break;
+                case 7:
+                    SDL_SetRenderDrawColor(renderer, 237, 207, 114, SDL_ALPHA_OPAQUE);
+                    break;
+                case 8:
+                    SDL_SetRenderDrawColor(renderer, 237, 204, 97, SDL_ALPHA_OPAQUE);
+                    break;
+                case 9:
+                    SDL_SetRenderDrawColor(renderer, 237, 204, 97, SDL_ALPHA_OPAQUE);
+                    break;
+                case 10:
+                    SDL_SetRenderDrawColor(renderer, 237, 197, 63, SDL_ALPHA_OPAQUE);
+                    break;
+                case 11:
+                    SDL_SetRenderDrawColor(renderer, 237, 194, 46, SDL_ALPHA_OPAQUE);
+                    break;
+                default:
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+                    break;
+            }
+
             SDL_RenderFillRect(renderer, &rect);
             if (board.at(i).at(j)) {
                 drawText(renderer, rect.x, rect.y, board.at(i).at(j) - 1);
             }
-            
-            SDL_SetRenderDrawColor(renderer, 100, 100, 100, SDL_ALPHA_OPAQUE);
             rect.x += tileSizePixels+tilesOffset;
         }
         rect.x = tilesOffset;
