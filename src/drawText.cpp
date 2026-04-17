@@ -9,7 +9,7 @@ std::vector <SDL_Texture*> textures;
 
 
 bool initText (){
-    SDL_Color color = { 255, 255, 255, SDL_ALPHA_OPAQUE };
+    
     
     TTF_Font *font = NULL;
     font = TTF_OpenFont("assets/fonts/Roboto-Regular.ttf", 24);
@@ -27,6 +27,18 @@ bool initText (){
         std::string stringForm = std::to_string(decimalValue);
 
         SDL_Surface *text;
+        SDL_Color color = { 255, 255, 255, SDL_ALPHA_OPAQUE };
+        
+        switch (i) {
+            case 1:
+            case 2:
+                color = { 10, 10, 10, SDL_ALPHA_OPAQUE };
+                break;
+            default:
+                color = { 255, 255, 255, SDL_ALPHA_OPAQUE };
+                break;
+        }
+
         text = TTF_RenderText_Blended(font, stringForm.c_str(), 0, color);
         if (text) {
             texture = SDL_CreateTextureFromSurface(renderer, text);
